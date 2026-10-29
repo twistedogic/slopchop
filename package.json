@@ -1,0 +1,23 @@
+{
+  "name": "slopchop",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@earendil-works/chord": "^1.4.0",
+    "@earendil-works/pi-ai": "^1.4.0",
+    "@earendil-works/pi-durable": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
