@@ -93,7 +93,11 @@ export async function run(options: RunOptions): Promise<RunResult> {
 				continue;
 			}
 			const bucket = discovery.byDate.get(date);
-			if (!bucket) continue;
+			if (!bucket) {
+				outcomes.push({ date, status: "skipped", cause: "the feeds cover no article for this date" });
+				lines.push(`${date} skipped: the feeds cover no article for this date`);
+				continue;
+			}
 			const offered = bucket.filter((candidate) => !covered.has(canonicalUrl(candidate.url)));
 			if (offered.length === 0) {
 				outcomes.push({ date, status: "skipped", cause: "every article was already published" });
@@ -141,6 +145,8 @@ export async function run(options: RunOptions): Promise<RunResult> {
 			} catch (error) {
 				const cause = error instanceof SlopchopError ? error.reason : "unknown";
 				const message = error instanceof Error ? error.message : String(error);
+				for (const exclusion of error instanceof SlopchopError ? error.exclusions : [])
+					lines.push(`${date} excluded ${exclusion.url}: ${exclusion.reason}`);
 				outcomes.push({ date, status: "failed", cause });
 				lines.push(`${date} failed: ${cause}: ${message}`);
 			}

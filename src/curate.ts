@@ -36,9 +36,9 @@ export async function curateDay(input: DayInput): Promise<DayOutcome> {
 	const { harness, date, candidates, conversation, attempt } = input;
 	const port = conversationPort(conversation);
 	const requestId = (stage: string): string => `slopchop/${date}/${attempt}/${stage}`;
+	const excluded: Exclusion[] = [];
 	try {
 		const bodies = input.bodies ?? new Map<string, string>();
-		const excluded: Exclusion[] = [];
 		if (!input.bodies) {
 			const fetched = await (input.fetch ?? fetchBodies)(
 				candidates.map((candidate) => candidate.url),
@@ -79,6 +79,7 @@ export async function curateDay(input: DayInput): Promise<DayOutcome> {
 		};
 	} catch (error) {
 		await writeDateRecord(harness, date, { failure: error instanceof SlopchopError ? error.reason : "unknown" });
+		if (error instanceof SlopchopError) error.exclusions.push(...excluded);
 		throw error;
 	}
 }

@@ -43,7 +43,8 @@ export function childEnv(): NodeJS.ProcessEnv {
 /** Fetches one article's body. A failure is reported for that article, not for the day. */
 export async function fetchBody(url: HttpUrl, options: FetchOptions): Promise<BodyFetch> {
 	return new Promise((resolve) => {
-		const child = spawn(options.binary, browserArgv(url, options), { shell: false, env: childEnv() });
+		const argv = browserArgv(url, options);
+		const child = spawn(argv[0] as string, argv.slice(1), { shell: false, env: childEnv() });
 		const chunks: Buffer[] = [];
 		const errors: string[] = [];
 		let settled = false;

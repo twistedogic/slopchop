@@ -225,8 +225,8 @@ phase, updated as it lands. The decision trail with evidence lives in
 | A. Ground | Read the installed pi-durable, pi-ai, contentlayer and lightpanda surfaces. Trace the submission to entry flow, the document model, the task and recovery model, context and compaction, and the observability surface. | done |
 | B. Sketch | Two arena candidates over the curator core, separate output directories, then a cross-judge. | done |
 | C. Agree | Pick a base, graft from the loser, write the rationale. | done, landed as `design.md` |
-| D. Implement | Fill the sketch's `not implemented` bodies in wave order. | pending, starts at task 2.1 |
-| E. Scrap | Re-architect if implementation friction repeats. | pending |
+| D. Implement | Fill the sketch's `not implemented` bodies in wave order. | done, all 27 tasks |
+| E. Scrap | Re-architect if implementation friction repeats. | not needed |
 
 The grounding surfaced five facts the design session did not know. Two of them
 changed the architecture, not just the implementation. `root(ctx, {agent})`
@@ -239,12 +239,12 @@ candidates the synthesis was made from.
 
 | Wave | State |
 | --- | --- |
-| 0. Spikes | pending, and now a gate on implementation rather than on the design |
+| 0. Spikes | done. The provider failed and the default changed, the browser flags work, the contentlayer holes are reproduced, and the Pages chain serves a post |
 | 1. Design revision into the OpenSpec change | done, `openspec validate` passes strict |
-| 2. The spine | pending |
-| 3. The curator core | pending |
-| 4. Orchestration and the Pi | pending |
-| 5. Hand back | pending |
+| 2. The spine | done. The publisher writes through the Contents API, the state comes back from the git tree, and the workflow builds and deploys |
+| 3. The curator core | done. The feeds, the fetch boundary, the two model calls, the renderer and the record are all covered by the suite |
+| 4. Orchestration and the Pi | done here, not on the Pi. The run published 2026-10-27 and the second run spent nothing; the Pi was not reachable from this session |
+| 5. Hand back | done. The README, the run report, the trail and its checker |
 
 Wave 1 ran before wave 0, which reverses the playbook's order. The architect
 phase needed a design to sketch against, and the spikes that remained are the

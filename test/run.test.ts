@@ -91,7 +91,10 @@ test("the current date is never published and a date outside the window is never
 		model: MODEL,
 		lockPath: join(tmpdir(), `slopchop-lock-${Date.now()}`),
 	});
-	assert.deepEqual(result.outcomes, []);
+	assert.deepEqual(
+		result.outcomes.map((outcome) => `${outcome.date}:${outcome.status}`),
+		["2026-10-27:skipped", "2026-10-28:skipped", "2026-10-29:skipped"],
+	);
 	assert.equal(faux.state.callCount, 0);
 });
 
@@ -113,7 +116,10 @@ test("a date at the attempt limit is abandoned and costs no model call", async (
 		model: MODEL,
 		lockPath: join(tmpdir(), `slopchop-lock-${Date.now()}`),
 	});
-	assert.deepEqual(result.outcomes.map((outcome) => outcome.status), ["abandoned"]);
+	assert.deepEqual(
+		result.outcomes.map((outcome) => `${outcome.date}:${outcome.status}`),
+		["2026-10-27:skipped", "2026-10-28:skipped", "2026-10-29:abandoned"],
+	);
 	assert.equal(faux.state.callCount, 0);
 });
 
@@ -164,7 +170,11 @@ test("the report of a failed date survives a restart", async () => {
 	const reopened = await Harness.open(await openNodeSqliteStorage(db), { models, registry: createRegistry() }, context);
 	const report = await readRunReport(reopened, result.runId);
 	assert.ok(report);
-	assert.deepEqual(report?.outcomes, [{ date: "2026-10-29", status: "failed", cause: "no_sections" }]);
+	assert.deepEqual(report?.outcomes, [
+		{ date: "2026-10-27", status: "skipped", cause: "the feeds cover no article for this date" },
+		{ date: "2026-10-28", status: "skipped", cause: "the feeds cover no article for this date" },
+		{ date: "2026-10-29", status: "failed", cause: "no_sections" },
+	]);
 	await reopened.close(context);
 });
 
