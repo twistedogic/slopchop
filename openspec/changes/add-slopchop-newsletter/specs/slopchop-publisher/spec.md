@@ -63,6 +63,11 @@ The system SHALL determine which dates are published by reading the published re
 - **WHEN** the repository holds more published files than a single directory listing returns
 - **THEN** the system still reports every earlier date as published, and does not try to publish it again
 
+#### Scenario: a truncated listing is refused
+
+- **WHEN** the mechanism that lists the published files reports that its answer was truncated
+- **THEN** the system refuses to act on that answer, reports a named cause, and publishes nothing for that run
+
 #### Scenario: nothing local records what was published
 
 - **WHEN** the system's durable store is inspected

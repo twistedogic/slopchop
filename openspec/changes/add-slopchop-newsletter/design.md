@@ -22,7 +22,7 @@ Two constraints come from the product, not the libraries. The machine runs in Ho
 
 **Goals:**
 
-- One dated post published per day, unattended, at a URL the reader can open.
+- One dated post published per day the feeds carry news for, unattended, at a URL the reader can open.
 - A crash never costs the same model call twice, and never publishes a partial post.
 - The model's output cannot introduce a URL, a link, or a title that the app did not choose.
 - Every stage is assertable without a network and without a provider credential.
@@ -139,7 +139,7 @@ Two constraints come from the product, not the libraries. The machine runs in Ho
 
 ## Risks / Trade-offs
 
-- **The Contents API directory listing returns at most 1000 files.** At one post a day that is about two and a half years. After that the listing truncates, older dates look unpublished, and the run tries to republish them. Mitigation: the publisher reads the published dates through the git tree API, which has no such cap, from the start. It costs one endpoint.
+- **The Contents API directory listing returns at most 1000 files.** At one post a day that is about two and a half years. After that the listing truncates, older dates look unpublished, and the run tries to republish them. Mitigation: the publisher reads the published dates through the git tree API from the start. It asks for the recursive tree of the branch, finds the tree of the content directory in it, and then lists that subtree on its own. A subtree listing has no per-directory limit, so the thousand-file cap does not apply. Both calls report a `truncated` flag, and the publisher refuses to act on a truncated answer rather than silently treating old dates as new.
 - **The provider is untested from Hong Kong.** If `openai-codex` cannot authenticate there, every date fails at selection and the run says so on every line, but the site's archive shows a quiet gap. Mitigation: the run checks provider availability before discovery and fails with a named cause, so the log says "provider not configured" rather than "selection failed".
 - **A quiet day publishes nothing and the reader sees a gap.** A gap and a failure look the same from the archive. Mitigation: the run's report distinguishes skipped from failed, and the report is the operator's view. A quiet day is a deliberate skip, not a failure, and the two are named differently there.
 - **The date arithmetic steps in fixed 24-hour increments.** Hong Kong has no daylight saving, so this is correct here and wrong for a zone that has one. Mitigation: the timezone is configuration, not a constant.

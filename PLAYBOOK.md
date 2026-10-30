@@ -9,17 +9,23 @@ this same product died without ever publishing an artifact.
 The run is done when this is true, checked on the real product and not a proxy.
 
 > On a clean machine holding the repo, the pinned toolchain and a seeded
-> credential store, `npm run curate` with no arguments either
+> credential store, `npm run curate` with no arguments
 >
 > **(a)** publishes a post at `https://twistedogic.github.io/slopchop/<YYYY-MM-DD>`
-> whose served HTML contains the post body, carries no `javascript:` or `data:`
-> URL, and carries no unescaped title in the markup, or
+> for every date the feeds carry news for, whose served HTML contains the post
+> body, carries no `javascript:` or `data:` URL, and carries no unescaped title
+> in the markup; and
 >
-> **(b)** exits non-zero with one line naming the stage, the URL and the
-> underlying cause, leaving no partial post, no partial file, and no other date
-> unpublished.
+> **(b)** for every date it could not publish, reports one line naming the
+> stage, the URL and the underlying cause, publishes no partial post and no
+> partial file, and lets the other dates publish; and
+>
+> **(c)** exits non-zero when any date failed.
 >
 > A second invocation on the same date publishes nothing and spends nothing.
+
+A failed date must not cost the reader the other dates. That is why the
+predicate is per date rather than all or nothing.
 
 Everything below is in service of that sentence. A unit that does not move it
 closer is not a unit.
@@ -58,8 +64,11 @@ intentions.
 
 ## Blockers carried into the run
 
-- Thirteen findings from the adversarial review of the design. Each becomes a
-  requirement or an explicit dismissal. None becomes a footnote.
+- Thirty-three findings from two adversarial reviews of the design. Thirteen
+  survived as requirements or explicit dismissals. Every one of the thirty-three
+  has a recorded disposition in
+  `openspec/changes/add-slopchop-newsletter/review-findings.md`. None becomes a
+  footnote.
 - `twistedogic/slopchop` does not exist. Confirmed 404.
 - The OpenAI API refuses to serve Hong Kong. The chosen provider is untested.
 - Catch-up cannot be built from the chosen sources. They are current-state only.
@@ -173,9 +182,10 @@ gate output path. Never a paragraph.
 
 The trail is append only. A wrong call gets a new row that supersedes it.
 
-The 13 Act On findings from the adversarial review each get a row when the
-finding is encoded or dismissed. So does each spike verdict. So does each
-revert.
+Every one of the 33 review findings gets a row when it is encoded or
+dismissed. So does each spike verdict. So does each revert. The full
+disposition table lives in
+`openspec/changes/add-slopchop-newsletter/review-findings.md`.
 
 ## Checkpoint
 

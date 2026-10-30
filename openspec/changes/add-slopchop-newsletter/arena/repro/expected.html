@@ -1,0 +1,12 @@
+<p>A javascript scheme in a link destination: <a href="javascript:alert(3)">click me</a></p>
+<p>A data scheme in a link destination: <a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">data</a></p>
+<p>A raw html script tag: alert(1)</p>
+<p>A url with a closing parenthesis, written as a plain destination: <a href="https://evil.example/a">paren</a>b) tail</p>
+<p>A url with a closing parenthesis, written as an angle bracket destination: <a href="https://evil.example/a)b">paren</a></p>
+<p>A bare type name in prose: Vec</p>
+<p>A type name in inline code: <code>Vec&#x3C;T></code></p>
+<p>A fenced code block with braces:</p>
+<pre><code class="language-rust">fn main() {
+    let x = { let y = 1; y + 1 };
+}
+</code></pre>
