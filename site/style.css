@@ -1,0 +1,8 @@
+:root { color-scheme: light dark; }
+body { margin: 0 auto; max-width: 42rem; padding: 2rem 1rem; font: 1rem/1.6 system-ui, sans-serif; }
+main { display: block; }
+h1 { font-size: 1.6rem; line-height: 1.25; }
+.meta { color: #666; font-size: .9rem; }
+ul.archive { list-style: none; padding: 0; }
+ul.archive li { border-bottom: 1px solid #8883; padding: .5rem 0; }
+a { color: inherit; }
