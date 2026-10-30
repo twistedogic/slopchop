@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>Example Atom Feed</title>
+	<updated>2026-10-29T12:00:00Z</updated>
+	<entry>
+		<title>Cloudflare ships something</title>
+		<link rel="alternate" href="https://example.org/cloudflare" />
+		<summary>A short summary.</summary>
+		<updated>2026-10-29T12:00:00Z</updated>
+	</entry>
+</feed>

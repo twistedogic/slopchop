@@ -7,6 +7,8 @@
     "node": ">=22.18"
   },
   "scripts": {
+    "build": "contentlayer build && node site/build.ts",
+    "prove": "npm run build && npm test",
     "start": "node --env-file-if-exists=.env src/cli.ts",
     "typecheck": "tsc --noEmit",
     "test": "node --test test/*.test.ts"
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "contentlayer": "0.3.4",
     "typescript": "^5.9.0"
   }
 }
