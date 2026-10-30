@@ -8,6 +8,28 @@ The run is unattended: it holds a lock, it records what it decided, it resumes
 where it crashed, and it fails loudly with a named cause rather than quietly
 publishing nothing.
 
+![A published post](docs/post.png)
+
+Live posts: [2026-10-27](https://twistedogic.github.io/slopchop/2026-10-27) ·
+[2026-10-29](https://twistedogic.github.io/slopchop/2026-10-29)
+
+## How it works
+
+1. **Discover.** Every configured feed is read over plain HTTP and its items
+   are bucketed by date, in the configured timezone.
+2. **Fetch.** Every article body is fetched by the headless browser, with the
+   private network blocked, a hard deadline and an output cap.
+3. **Select.** A cheap model call over the titles and the openings of the
+   bodies answers with the indices of the articles worth reading.
+4. **Compose.** An expensive model call over the bodies of those articles
+   answers with one section each.
+5. **Render and publish.** The application writes the frontmatter and every
+   link, so the model cannot introduce a url. The post goes to the repository
+   through the GitHub API, and the Pages workflow builds and deploys it.
+
+The model never writes a url or a title. It answers with references into the
+candidate list the application owns, and the application renders every link.
+
 ## Requirements
 
 - Node >= 22.18 — it runs the TypeScript directly, so there is no build step.
@@ -53,6 +75,8 @@ run from a cron job:
 17 6 * * *  cd /home/pi/slopchop && npm start >> /var/log/slopchop.log 2>&1
 ```
 
+Running it twice on the same day publishes nothing and costs nothing.
+
 ## Check
 
 ```bash
@@ -60,6 +84,7 @@ npm test          # the whole suite: no network, no provider credential
 npm run typecheck
 npm run build     # builds dist/ from content/, exactly as Pages does
 npm run prove     # build, then the suite
+node scripts/check-trail.ts   # every evidence pointer in decisions.tsv resolves
 ```
 
 ## The site
@@ -70,13 +95,17 @@ and an archive that lists the posts newest first. The Pages workflow
 (`.github/workflows/pages.yml`) runs that build on `main` and deploys it, so
 the publisher, the state query and the build all name one branch.
 
+The published repository is also the source of truth for what is published:
+the run reads the dates and the covered urls back out of it, and keeps no
+local ledger of them.
+
 ## The run report
 
 Every run prints one line per date, and keeps the same report in the database:
 
 ```
 2026-10-27 published
-2026-10-28 skipped: nothing was worth reading
+2026-10-28 skipped: the feeds cover no article for this date
 2026-10-29 failed: incomplete_answer: the answer carried 1 of 2 sections
 ```
 
@@ -127,3 +156,4 @@ says why, and the report survives a restart.
 | `src/harness.ts` | The durable session and the model configuration |
 | `site/build.ts` | The build: `content/` to `dist/` |
 | `site/template.html` | The one template every page uses |
+| `decisions.tsv` | The decision trail, one row per decision |
