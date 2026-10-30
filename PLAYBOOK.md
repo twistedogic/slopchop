@@ -67,7 +67,7 @@ intentions.
 - Thirty-three findings from two adversarial reviews of the design. Thirteen
   survived as requirements or explicit dismissals. Every one of the thirty-three
   has a recorded disposition in
-  `openspec/changes/add-slopchop-newsletter/review-findings.md`. None becomes a
+  `openspec/changes/archive/2026-10-31-add-slopchop-newsletter/review-findings.md`. None becomes a
   footnote.
 - `twistedogic/slopchop` does not exist. Confirmed 404.
 - The OpenAI API refuses to serve Hong Kong. The chosen provider is untested.
@@ -81,7 +81,7 @@ intentions.
 ## Phase list
 
 This is the list a reviewer reads. The authoritative unit detail lives in
-`openspec/changes/add-slopchop-newsletter/tasks.md`.
+`openspec/changes/archive/2026-10-31-add-slopchop-newsletter/tasks.md`.
 
 | Wave | What | Units | Gate |
 | --- | --- | --- | --- |
@@ -185,7 +185,7 @@ The trail is append only. A wrong call gets a new row that supersedes it.
 Every one of the 33 review findings gets a row when it is encoded or
 dismissed. So does each spike verdict. So does each revert. The full
 disposition table lives in
-`openspec/changes/add-slopchop-newsletter/review-findings.md`.
+`openspec/changes/archive/2026-10-31-add-slopchop-newsletter/review-findings.md`.
 
 ## Checkpoint
 
@@ -232,7 +232,7 @@ The grounding surfaced five facts the design session did not know. Two of them
 changed the architecture, not just the implementation. `root(ctx, {agent})`
 ignores the agent on an existing root, and pi-durable has no public way to
 enumerate a document family. The arena artifacts are committed under
-`openspec/changes/add-slopchop-newsletter/arena/` so a reviewer can see the
+`openspec/changes/archive/2026-10-31-add-slopchop-newsletter/arena/` so a reviewer can see the
 candidates the synthesis was made from.
 
 ### Execution waves
